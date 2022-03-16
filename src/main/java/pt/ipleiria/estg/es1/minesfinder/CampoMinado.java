@@ -12,10 +12,15 @@ public class CampoMinado {
     private final int altura;
     private final int numeroMinas;
 
+    private boolean[][] minas;
+    private int[][] estado;
+
     public CampoMinado(int altura, int largura, int numeroMinas){
         this.altura = altura;
         this.largura = largura;
         this.numeroMinas = numeroMinas;
+        minas = new boolean[largura][altura]; // Valores começam a false
+        estado = new int[largura][altura]; // Valores começam a 0 - começa tudo tapado
     }
 
     public int getAltura() {
@@ -24,5 +29,12 @@ public class CampoMinado {
 
     public int getLargura() {
         return largura;
+    }
+
+    public int getEstadoQuadricula(int x, int y) {
+        return estado[x][y];
+    }
+    public boolean hasMina(int x, int y) {
+        return minas[x][y];
     }
 }

@@ -29,8 +29,12 @@ public class botaoCampoMinado extends JButton {
                 setText("!");
                 setBackground(Color.RED);
                 break;
-            default:
-                setText(estado+"");
+            case CampoMinado.REBENTADO:
+                setText("*");
+                setBackground(Color.ORANGE);
+                break;
+            default: // Quando tem minas ao lado e está tapado
+                setText(String.valueOf(estado)); //Ou setText(estado+"")
                 setBackground(Color.LIGHT_GRAY);
                 break;
         }
