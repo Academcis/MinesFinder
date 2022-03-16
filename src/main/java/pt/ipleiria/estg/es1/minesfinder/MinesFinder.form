@@ -155,10 +155,10 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-12828865"/>
+              <background color="-4406333"/>
               <horizontalAlignment value="0"/>
               <icon value="images/minas_facil.png"/>
-              <text value="Jogo Fácil"/>
+              <text value="Jogo &amp;Fácil"/>
             </properties>
           </component>
           <component id="72182" class="javax.swing.JButton" binding="btnMedio">
@@ -166,8 +166,9 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-4406333"/>
               <icon value="images/minas_medio.png"/>
-              <text value="Jogo Médio"/>
+              <text value="Jogo &amp;Médio"/>
             </properties>
           </component>
           <component id="f985e" class="javax.swing.JButton" binding="btnDificil">
@@ -175,8 +176,10 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-4406333"/>
+              <enabled value="true"/>
               <icon value="images/minas_dificil.png"/>
-              <text value="Jogo Difícil"/>
+              <text value="Jogo &amp;Difícil"/>
             </properties>
           </component>
           <component id="5e555" class="javax.swing.JButton" binding="btnSair">
@@ -184,7 +187,8 @@
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Sair"/>
+              <background color="-4406333"/>
+              <text value="&amp;Sair"/>
             </properties>
           </component>
         </children>

@@ -23,30 +23,30 @@ public class MinesFinder extends JFrame{
         pack();
         btnSair.addActionListener(this::btnSairActionPerformed);
 
-        btnFacil.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Fácil");
-            }
-        });
+        btnFacil.addActionListener(this::btnJogoFacilActionPerformed);
 
-        btnMedio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Médio");
-            }
-        });
+        btnMedio.addActionListener(this::btnJogoMedioActionPerformed);
 
-        btnDificil.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Difícil");
-            }
-        });
+        btnDificil.addActionListener(this::btnJogoDificilActionPerformed);
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
         System.exit(0);
+    }
+
+    private void btnJogoFacilActionPerformed(ActionEvent e) {
+        JanelaDeJogo janela = new JanelaDeJogo("Fácil");
+        janela.setVisible(true);
+    }
+
+    private void btnJogoMedioActionPerformed(ActionEvent e) {
+        JanelaDeJogo janela = new JanelaDeJogo("Médio");
+        janela.setVisible(true);
+    }
+
+    private void btnJogoDificilActionPerformed(ActionEvent e) {
+        JanelaDeJogo janela = new JanelaDeJogo("Difícil");
+        janela.setVisible(true);
     }
 
     public static void main(String[] args) {
