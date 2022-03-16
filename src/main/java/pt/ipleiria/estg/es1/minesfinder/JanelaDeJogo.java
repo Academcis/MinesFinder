@@ -6,15 +6,20 @@ import java.awt.*;
 public class JanelaDeJogo extends JFrame{
     private JPanel painelJogo; // painel do jogo. O nome é definido no modo Design, em "field name"
 
-    public JanelaDeJogo(String title) {
+    public JanelaDeJogo(String title, CampoMinado campoMinado) {
         super(title);
 
-        painelJogo.setLayout(new GridLayout(10,20));
+        int largura = campoMinado.getLargura();
+        int altura = campoMinado.getAltura();
+        painelJogo.setLayout(new GridLayout(largura,altura));
 
         // Adicionar os botões
-        for (int i=0; i<150; i++){
-            JButton btn = new JButton();
-            painelJogo.add(btn);
+        for (int linha=0; linha<altura; linha++) {
+            for (int coluna=0; coluna<largura; coluna++){
+                JButton btn = new JButton();
+                btn.setText("C"+coluna+"L"+linha);
+                painelJogo.add(btn);
+            }
         }
         setContentPane(painelJogo);
 
