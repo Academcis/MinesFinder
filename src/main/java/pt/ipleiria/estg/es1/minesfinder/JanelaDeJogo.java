@@ -2,6 +2,7 @@ package pt.ipleiria.estg.es1.minesfinder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class JanelaDeJogo extends JFrame{
     private JPanel painelJogo; // painel do jogo. O nome é definido no modo Design, em "field name"
@@ -22,11 +23,11 @@ public class JanelaDeJogo extends JFrame{
         // Adicionar os botões
         for (int linha=0; linha<altura; linha++) {
             for (int coluna=0; coluna<largura; coluna++){
-                botaoCampoMinado btn = new botaoCampoMinado(campoMinado);
                 //btn.setText("C"+coluna+"L"+linha);
                // btn.setEstado(linha);
-                botoes[coluna][linha] = btn;
-                painelJogo.add(btn);
+                botoes[coluna][linha] = new botaoCampoMinado(linha, coluna);
+                botoes[coluna][linha].addActionListener(this::btnCampoMinadoActionPerformed);
+                painelJogo.add(botoes[coluna][linha]);
             }
         }
 
@@ -34,5 +35,21 @@ public class JanelaDeJogo extends JFrame{
         // Destrói esta janela, removendo-a completamente da memória.
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
+    }
+
+    public void btnCampoMinadoActionPerformed(ActionEvent e) {
+        var botao = (botaoCampoMinado) e.getSource();
+        int x = botao.getLinha();
+        int y = botao.getColuna();
+        campoMinado.revelarQuadricula(x, y);
+        actualizarEstadoBotoes();
+    }
+
+    private void actualizarEstadoBotoes() {
+        for (int x = 0; x < campoMinado.getLargura(); x++) {
+            for (int y = 0; y < campoMinado.getAltura(); y++) {
+                botoes[x][y].setEstado(campoMinado.getEstadoQuadricula(x, y));
+            }
+        }
     }
 }

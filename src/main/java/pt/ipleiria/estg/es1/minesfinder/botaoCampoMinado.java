@@ -5,9 +5,13 @@ import java.awt.*;
 
 public class botaoCampoMinado extends JButton {
     private int estado;
+    private int linha;
+    private int coluna;
 
-    public botaoCampoMinado(CampoMinado campoMinado) {
-        this.estado = campoMinado.TAPADO;
+    public botaoCampoMinado(int linha, int coluna) {
+        this.estado = CampoMinado.TAPADO;
+        this.linha = linha;
+        this.coluna = coluna;
     }
 
     public void setEstado(int estado) {
@@ -40,4 +44,11 @@ public class botaoCampoMinado extends JButton {
         }
     }
 
+    public int getLinha() {
+        return linha;
+    }
+
+    public int getColuna() {
+        return coluna;
+    }
 }
