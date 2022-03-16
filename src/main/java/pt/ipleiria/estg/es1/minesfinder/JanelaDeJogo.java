@@ -16,8 +16,9 @@ public class JanelaDeJogo extends JFrame{
         // Adicionar os botões
         for (int linha=0; linha<altura; linha++) {
             for (int coluna=0; coluna<largura; coluna++){
-                JButton btn = new JButton();
+                botaoCampoMinado btn = new botaoCampoMinado(campoMinado);
                 btn.setText("C"+coluna+"L"+linha);
+                btn.setEstado(linha);
                 painelJogo.add(btn);
             }
         }
