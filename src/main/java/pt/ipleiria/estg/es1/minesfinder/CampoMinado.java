@@ -21,6 +21,9 @@ public class CampoMinado {
     private boolean jogoTerminado;
     private boolean jogadorDerrotado;
 
+    private long instanteInicioJogo;
+    private long duracaoJogo;
+
     public CampoMinado(int altura, int largura, int numeroMinas){
         this.altura = altura;
         this.largura = largura;
@@ -69,6 +72,8 @@ public class CampoMinado {
         if(primeiraJogada){
             colocarMinas(x,y);
             primeiraJogada = false;
+
+            instanteInicioJogo = System.currentTimeMillis();
         }
 
         // Faz aqui qualquer coisa...
@@ -77,6 +82,7 @@ public class CampoMinado {
             estado[x][y] = CampoMinado.REBENTADO;
             jogadorDerrotado = true;
             jogoTerminado = true;
+            duracaoJogo=System.currentTimeMillis()-instanteInicioJogo;
             return;
         }
 
@@ -85,6 +91,7 @@ public class CampoMinado {
         if (nMinas == 0){
             estado[x][y] = VAZIO;
             revelarQuadriculasVizinhas(x,y);
+            duracaoJogo=System.currentTimeMillis()-instanteInicioJogo;
             return;
         }
 
@@ -149,5 +156,27 @@ public class CampoMinado {
         if(estado[x][y]==CampoMinado.TAPADO || estado[x][y]==CampoMinado.DUVIDA){
             estado[x][y] = CampoMinado.MARCADO;
         }
+    }
+
+    private void marcarComoSuspeita(int x, int y){
+        if(estado[x][y]==CampoMinado.TAPADO || estado[x][y]==CampoMinado.MARCADO){
+            estado[x][y] = CampoMinado.DUVIDA;
+        }
+    }
+
+    private void desmarcarQuadricula(int x, int y){
+        if(estado[x][y]==CampoMinado.MARCADO || estado[x][y]==CampoMinado.DUVIDA){
+            estado[x][y] = CampoMinado.TAPADO;
+        }
+    }
+
+    public long getDuracaoJogo() {
+        if (primeiraJogada) {
+            return 0;
+        }
+        if (!jogoTerminado) {
+            return System.currentTimeMillis() - instanteInicioJogo;
+        }
+        return duracaoJogo;
     }
 }
