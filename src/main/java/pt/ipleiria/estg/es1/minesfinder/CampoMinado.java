@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.es1.minesfinder;
 
+import javax.swing.*;
 import java.util.Random;
 
 public class CampoMinado {
@@ -18,7 +19,7 @@ public class CampoMinado {
     private int[][] estado;
 
     private boolean primeiraJogada;
-    private boolean jogoTerminado;
+    protected boolean jogoTerminado;
     private boolean jogadorDerrotado;
 
     private long instanteInicioJogo;
@@ -141,7 +142,7 @@ public class CampoMinado {
         }
     }
 
-    private boolean isVitoria() {
+    protected boolean isVitoria() {
         for (int i = 0; i < largura; i++) {
             for (var j = 0 ; j < altura; j++) {
                 if (!minas[i][j] && estado[i][j] >= TAPADO) {
@@ -152,19 +153,19 @@ public class CampoMinado {
         return true;
     }
 
-    private void marcarComoTendoMina(int x, int y){
+    protected void marcarComoTendoMina(int x, int y){
         if(estado[x][y]==CampoMinado.TAPADO || estado[x][y]==CampoMinado.DUVIDA){
             estado[x][y] = CampoMinado.MARCADO;
         }
     }
 
-    private void marcarComoSuspeita(int x, int y){
+    protected void marcarComoSuspeita(int x, int y){
         if(estado[x][y]==CampoMinado.TAPADO || estado[x][y]==CampoMinado.MARCADO){
             estado[x][y] = CampoMinado.DUVIDA;
         }
     }
 
-    private void desmarcarQuadricula(int x, int y){
+    protected void desmarcarQuadricula(int x, int y){
         if(estado[x][y]==CampoMinado.MARCADO || estado[x][y]==CampoMinado.DUVIDA){
             estado[x][y] = CampoMinado.TAPADO;
         }

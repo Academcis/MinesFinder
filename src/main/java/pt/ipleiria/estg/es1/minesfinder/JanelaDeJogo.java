@@ -3,6 +3,8 @@ package pt.ipleiria.estg.es1.minesfinder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class JanelaDeJogo extends JFrame{
     private JPanel painelJogo; // painel do jogo. O nome é definido no modo Design, em "field name"
@@ -27,6 +29,7 @@ public class JanelaDeJogo extends JFrame{
                // btn.setEstado(linha);
                 botoes[coluna][linha] = new botaoCampoMinado(linha, coluna);
                 botoes[coluna][linha].addActionListener(this::btnCampoMinadoActionPerformed);
+                botoes[coluna][linha].addMouseListener(mouseListener);
                 painelJogo.add(botoes[coluna][linha]);
             }
         }
@@ -43,6 +46,15 @@ public class JanelaDeJogo extends JFrame{
         int x = botao.getColuna();
         campoMinado.revelarQuadricula(x, y);
         actualizarEstadoBotoes();
+
+        if (campoMinado.isJogoTerminado()) {
+            if (campoMinado.isJogadorDerrotado())
+                JOptionPane.showMessageDialog(null, "Oh, rebentou uma mina", "Perdeu!", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "Parabéns. Conseguiu descobrir todas as minas em "+
+                     (campoMinado.getDuracaoJogo()/1000)+" segundos", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
     }
 
     private void actualizarEstadoBotoes() {
@@ -51,5 +63,43 @@ public class JanelaDeJogo extends JFrame{
                 botoes[x][y].setEstado(campoMinado.getEstadoQuadricula(x, y));
             }
         }
+
+        if(campoMinado.isVitoria()){
+            campoMinado.jogoTerminado = true;
+            return;
+        }
     }
+
+    MouseListener mouseListener=new MouseListener() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getButton() != MouseEvent.BUTTON3) {
+                return;
+            }
+            var botao = (botaoCampoMinado) e.getSource();
+            var x = botao.getColuna();
+            var y = botao.getLinha();
+            var estadoQuadricula = campoMinado.getEstadoQuadricula(x, y);
+            if (estadoQuadricula == CampoMinado.TAPADO) {
+                campoMinado.marcarComoTendoMina(x, y);
+            } else if (estadoQuadricula == CampoMinado.MARCADO) {
+                campoMinado.marcarComoSuspeita(x, y);
+            } else if (estadoQuadricula == CampoMinado.DUVIDA) {
+                campoMinado.desmarcarQuadricula(x, y);
+            }
+            actualizarEstadoBotoes();
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };
 }
