@@ -39,8 +39,8 @@ public class JanelaDeJogo extends JFrame{
 
     public void btnCampoMinadoActionPerformed(ActionEvent e) {
         var botao = (botaoCampoMinado) e.getSource();
-        int x = botao.getLinha();
-        int y = botao.getColuna();
+        int y = botao.getLinha();
+        int x = botao.getColuna();
         campoMinado.revelarQuadricula(x, y);
         actualizarEstadoBotoes();
     }

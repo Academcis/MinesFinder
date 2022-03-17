@@ -31,6 +31,12 @@ public class CampoMinado {
         primeiraJogada = true;
         jogadorDerrotado = false;
         jogoTerminado = false;
+
+        for (var x = 0; x < largura; x++) {
+            for (var y = 0; y < altura; y++) {
+                estado[x][y] = TAPADO;
+            }
+        }
     }
 
     public int getAltura() {
@@ -76,7 +82,7 @@ public class CampoMinado {
 
         //Por agora só considero que ou tem mina ou está vazio
         int nMinas = contarMinasVizinhas(x,y);
-        if (nMinas == CampoMinado.VAZIO){
+        if (nMinas == 0){
             estado[x][y] = VAZIO;
             revelarQuadriculasVizinhas(x,y);
             return;
@@ -89,7 +95,7 @@ public class CampoMinado {
         var aleatorio = new Random();
         int x = 0;
         int y = 0;
-        for (int i = 0; i < numeroMinas; ++i) {
+        for (int i = 0; i < numeroMinas; i++) {
             // Se a célula já tiver mina ou é a primeira escolhida gera outros números aletatórios
             do {
                 x = aleatorio.nextInt(largura);
@@ -109,27 +115,28 @@ public class CampoMinado {
 
     private int contarMinasVizinhas(int x, int y) {
         var numMinasVizinhas = 0;
-        for (var i = Math.max(0, x - 1); i < Math.min(largura, x + 2); ++i) {
-            for (var j = Math.max(0, y - 1); j < Math.min(altura, y + 2); ++j) {
+        for (var i = Math.max(0, x - 1); i < Math.min(largura, x + 2); i++) {
+            for (var j = Math.max(0, y - 1); j < Math.min(altura, y + 2); j++) {
                 if (minas[i][j]) {
                     ++numMinasVizinhas;
                 }
             }
         }
+
         return numMinasVizinhas;
     }
 
     private void revelarQuadriculasVizinhas(int x, int y){
-        for (var i = Math.max(0, x - 1); i < Math.min(largura, x + 2); ++i) {
-            for (var j = Math.max(0, y - 1); j < Math.min(altura, y + 2); ++j) {
+        for (var i = Math.max(0, x - 1); i < Math.min(largura, x + 2); i++) {
+            for (var j = Math.max(0, y - 1); j < Math.min(altura, y + 2); j++) {
                 estado[i][j] = VAZIO;
             }
         }
     }
 
     private boolean isVitoria() {
-        for (int i = 0; i < largura; ++i) {
-            for (var j = 0 ; j < altura; ++j) {
+        for (int i = 0; i < largura; i++) {
+            for (var j = 0 ; j < altura; j++) {
                 if (!minas[i][j] && estado[i][j] >= TAPADO) {
                     return false;
                 }
