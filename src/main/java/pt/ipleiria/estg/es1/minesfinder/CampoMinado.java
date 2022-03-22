@@ -137,7 +137,9 @@ public class CampoMinado {
     private void revelarQuadriculasVizinhas(int x, int y){
         for (var i = Math.max(0, x - 1); i < Math.min(largura, x + 2); i++) {
             for (var j = Math.max(0, y - 1); j < Math.min(altura, y + 2); j++) {
-                estado[i][j] = VAZIO;
+                if(!minas[x][y]) {
+                    revelarQuadricula(i,j);
+                }
             }
         }
     }

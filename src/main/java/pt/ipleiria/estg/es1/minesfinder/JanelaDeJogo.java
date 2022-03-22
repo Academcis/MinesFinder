@@ -20,17 +20,17 @@ public class JanelaDeJogo extends JFrame{
 
         this.botoes = new botaoCampoMinado[largura][altura];
 
-        painelJogo.setLayout(new GridLayout(largura,altura));
+        painelJogo.setLayout(new GridLayout(altura,largura));
 
         // Adicionar os botões
-        for (int linha=0; linha<altura; linha++) {
-            for (int coluna=0; coluna<largura; coluna++){
+        for (int coluna=0; coluna<altura; coluna++) {
+            for (int linha=0; linha<largura; linha++){
                 //btn.setText("C"+coluna+"L"+linha);
-               // btn.setEstado(linha);
-                botoes[coluna][linha] = new botaoCampoMinado(linha, coluna);
-                botoes[coluna][linha].addActionListener(this::btnCampoMinadoActionPerformed);
-                botoes[coluna][linha].addMouseListener(mouseListener);
-                painelJogo.add(botoes[coluna][linha]);
+                // btn.setEstado(linha);
+                botoes[linha][coluna] = new botaoCampoMinado(linha, coluna);
+                botoes[linha][coluna].addActionListener(this::btnCampoMinadoActionPerformed);
+                botoes[linha][coluna].addMouseListener(mouseListener);
+                painelJogo.add(botoes[linha][coluna]);
             }
         }
 
@@ -42,8 +42,8 @@ public class JanelaDeJogo extends JFrame{
 
     public void btnCampoMinadoActionPerformed(ActionEvent e) {
         var botao = (botaoCampoMinado) e.getSource();
-        int y = botao.getLinha();
-        int x = botao.getColuna();
+        int x = botao.getLinha();
+        int y = botao.getColuna();
         campoMinado.revelarQuadricula(x, y);
         actualizarEstadoBotoes();
 
