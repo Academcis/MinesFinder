@@ -9,12 +9,15 @@ public class JanelaDeJogo extends JFrame{
     private botaoCampoMinado[][] botoes;
     private CampoMinado campoMinado;
 
-    public JanelaDeJogo(String title, CampoMinado campoMinado) {
+    private TabelaRecordes recordes;
+
+    public JanelaDeJogo(String title, CampoMinado campoMinado, TabelaRecordes tabela) {
         super(title);
 
         int largura = campoMinado.getLargura();
         int altura = campoMinado.getAltura();
         this.campoMinado = campoMinado;
+        this.recordes = tabela;
 
         this.botoes = new botaoCampoMinado[largura][altura];
 
@@ -47,12 +50,22 @@ public class JanelaDeJogo extends JFrame{
         actualizarEstadoBotoes();
 
         if (campoMinado.isJogoTerminado()) {
-            if (campoMinado.isJogadorDerrotado())
+            if (campoMinado.isJogadorDerrotado()) {
                 JOptionPane.showMessageDialog(null, "Oh, rebentou uma mina", "Perdeu!", JOptionPane.INFORMATION_MESSAGE);
-            else
-                JOptionPane.showMessageDialog(null, "Parabéns. Conseguiu descobrir todas as minas em "+
-                     (campoMinado.getDuracaoJogo()/1000)+" segundos", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+            }else {
+                JOptionPane.showMessageDialog(null, "Parabéns. Conseguiu descobrir todas as minas em " +
+                        (campoMinado.getDuracaoJogo() / 1000) + " segundos", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+
+                boolean novoRecorde = campoMinado.getDuracaoJogo()<recordes.getTempoJogo();
+                if (novoRecorde) {
+                    String nome = JOptionPane.showInputDialog("Introduza o seu nome");
+                    recordes.setRecorde(nome, campoMinado.getDuracaoJogo());
+                }
+            }
+
             setVisible(false);
+
+
         }
     }
 
@@ -135,4 +148,6 @@ public class JanelaDeJogo extends JFrame{
                     campoMinado.desmarcarQuadricula(linha, coluna);
         }
     }
+
+
 }
