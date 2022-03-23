@@ -62,6 +62,7 @@ public class CampoMinado {
     public void revelarQuadricula(int x, int y) {
         if(isVitoria()){
             jogoTerminado = true;
+            duracaoJogo = System.currentTimeMillis()-instanteInicioJogo;
             return;
         }
 
@@ -73,7 +74,6 @@ public class CampoMinado {
         if(primeiraJogada){
             colocarMinas(x,y);
             primeiraJogada = false;
-
             instanteInicioJogo = System.currentTimeMillis();
         }
 
